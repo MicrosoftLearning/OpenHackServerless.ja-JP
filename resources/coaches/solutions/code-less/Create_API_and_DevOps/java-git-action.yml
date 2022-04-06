@@ -1,0 +1,38 @@
+### YamlMime:Yaml
+ms.openlocfilehash: 6531a2483b7a8ba85443a5d5c2b11c0bebeb7525
+ms.sourcegitcommit: 27a4afc732f8733e6022af2a58d01af5ae83545b
+ms.translationtype: HT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/23/2022
+ms.locfileid: "140813703"
+name: IceCreamRatings - Java
+on:
+  push:
+    branches:
+    - master
+jobs:
+  build-and-deploy:
+    runs-on: windows-latest
+    steps:
+    - name: GitHub アクションをチェックアウトする
+      uses: actions/checkout@master
+    - name: Azure CLI を介してログインする
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    - name: Java 1.8.x をセットアップする
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8.x
+    - name: mvn を実行する
+      shell: pwsh
+      run: >
+        mvn clean package
+
+        mvn azure-functions:package
+    - name: Azure Functions アクションを実行する
+      uses: Azure/functions-action@v1
+      id: fa
+      with:
+        app-name: PLEASE_REPLACE_THIS_WITH_YOUR_FUNCTION_APP_NAME
+        package: ./target/azure-functions/POM_FUNCTION_APP_NAME
