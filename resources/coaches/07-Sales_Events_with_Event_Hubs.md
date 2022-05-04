@@ -12,7 +12,7 @@ ms.locfileid: "140813675"
 
 ![POS 販売イベント処理の進行状況ダイアグラム](https://serverlessoh.azureedge.net/public/process-pos-sales-event-progress-diagram.jpg)
 
-## <a name="happy-path"></a>ハッピー パス
+## <a name="happy-path"></a>ハッピー パス 
 
 * Azure 関数のイベント ハブ トリガー
 * バッチを受信するように変更された関数トリガー (C# の string[])
